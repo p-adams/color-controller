@@ -1,6 +1,7 @@
 <script lang="ts">
   let backgroundColor = { r: 255, g: 0, b: 0 };
   $: color = `rgb(${backgroundColor.r}, ${backgroundColor.g}, ${backgroundColor.b})`;
+  $: hex = rgbToHex(backgroundColor.r, backgroundColor.g, backgroundColor.b);
   function rgbToHex(r: number, g: number, b: number): string {
     // Ensure that the values are in the valid range [0, 255]
     const clamp = (value: number) => Math.min(255, Math.max(0, value));
@@ -23,10 +24,11 @@
 
   <div class="card">
     <div>
-      {rgbToHex(backgroundColor.r, backgroundColor.g, backgroundColor.b)}
+      {hex}
     </div>
     <div class="color-square" style="background-color: {color};"></div>
-    <div>
+
+    <label for="red">
       <input
         type="range"
         id="red"
@@ -36,9 +38,10 @@
         bind:value={backgroundColor.r}
         step="10"
       />
-      <label for="red">Red {backgroundColor.r}</label>
-    </div>
-    <div>
+      Red {backgroundColor.r}
+    </label>
+
+    <label for="green">
       <input
         type="range"
         id="green"
@@ -48,19 +51,22 @@
         bind:value={backgroundColor.g}
         step="10"
       />
-      <label for="green">Green {backgroundColor.g}</label>
-    </div>
+      Green {backgroundColor.g}
+    </label>
+
     <div>
-      <input
-        type="range"
-        id="blue"
-        name="blue"
-        min="0"
-        max="255"
-        bind:value={backgroundColor.b}
-        step="10"
-      />
-      <label for="blue">Blue {backgroundColor.b}</label>
+      <label for="blue">
+        <input
+          type="range"
+          id="blue"
+          name="blue"
+          min="0"
+          max="255"
+          bind:value={backgroundColor.b}
+          step="10"
+        />
+        Blue {backgroundColor.b}
+      </label>
     </div>
   </div>
 </main>
