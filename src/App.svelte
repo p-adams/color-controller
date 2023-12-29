@@ -1,13 +1,30 @@
 <script lang="ts">
   let backgroundColor = { r: 255, g: 0, b: 0 };
   $: color = `rgb(${backgroundColor.r}, ${backgroundColor.g}, ${backgroundColor.b})`;
-  console.log(color);
+  function rgbToHex(r: number, g: number, b: number): string {
+    // Ensure that the values are in the valid range [0, 255]
+    const clamp = (value: number) => Math.min(255, Math.max(0, value));
+
+    // Convert each component to its hexadecimal representation
+    const toHex = (value: number) => value.toString(16).padStart(2, "0");
+
+    // Clamp and convert RGB components to hex
+    const hexR = toHex(clamp(r));
+    const hexG = toHex(clamp(g));
+    const hexB = toHex(clamp(b));
+
+    // Combine components to form the hex color code
+    return `#${hexR}${hexG}${hexB}`;
+  }
 </script>
 
 <main>
   <h1>Color Controller</h1>
 
   <div class="card">
+    <div>
+      {rgbToHex(backgroundColor.r, backgroundColor.g, backgroundColor.b)}
+    </div>
     <div class="color-square" style="background-color: {color};"></div>
     <div>
       <input
@@ -19,19 +36,7 @@
         bind:value={backgroundColor.r}
         step="10"
       />
-      <label for="red">Red</label>
-    </div>
-    <div>
-      <input
-        type="range"
-        id="blue"
-        name="blue"
-        min="0"
-        max="255"
-        bind:value={backgroundColor.b}
-        step="10"
-      />
-      <label for="blue">Blue</label>
+      <label for="red">Red {backgroundColor.r}</label>
     </div>
     <div>
       <input
@@ -43,7 +48,19 @@
         bind:value={backgroundColor.g}
         step="10"
       />
-      <label for="green">Green</label>
+      <label for="green">Green {backgroundColor.g}</label>
+    </div>
+    <div>
+      <input
+        type="range"
+        id="blue"
+        name="blue"
+        min="0"
+        max="255"
+        bind:value={backgroundColor.b}
+        step="10"
+      />
+      <label for="blue">Blue {backgroundColor.b}</label>
     </div>
   </div>
 </main>
