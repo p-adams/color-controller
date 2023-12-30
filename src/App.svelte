@@ -66,18 +66,4 @@
     height: 100px;
     box-shadow: 10px 5px 5px lightgray;
   }
-  .color-input-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-  }
-  .color-input-wrapper label {
-    display: flex;
-  }
-  .color-sample {
-    width: 55px;
-    height: 25px;
-  }
 </style>
